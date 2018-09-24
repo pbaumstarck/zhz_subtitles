@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-"""
-TODO: Usage note.
+"""Adds an offset to all subtitles in an SRT file.
+
+Example usage:
+
+  ./subtitles_offset.py input_file.srt 2:04
 """
 
 import re
@@ -15,6 +18,12 @@ total_seconds = int(minutes) * 60 + int(seconds)
 print 'total_seconds:', total_seconds
 
 def fix_timestamp_line(timestamp_line, offset):
+  """Offsets a timestamp line.
+  
+  :param str timestamp_line: A line, a la "00:01:01,000 --> 00:01:02,000".
+  :param int offset: Offset in seconds (positive or negative).
+  :return str: The fixed timestamp line, a la "00:01:01,500 --> 00:01:02,500".
+  """
   if ' --> ' not in timestamp_line:
     print '*** BAD TIMESTAMP LINE! ***', timestamp_line
     raise Exception()
